@@ -434,7 +434,7 @@
           <div class="cart__place-info">
             <p class="cart__place-count">4 товара на сумму:</p>
             <p class="cart__place-price">20 000 ₽</p>
-            <button class="cart__place-btn" type="submit" form="order">
+            <button class="cart__place-btn" type="submit" form="form">
               Оформить заказ
             </button>
           </div>
@@ -444,37 +444,37 @@
             <fieldset class="form-order__fieldset form-order__fieldset-input">
               <input
                 type="text"
-                class="form-oder__input"
+                class="form-order__input"
                 name="name"
                 placeholder="Фамилия Имя Отчество"
               />
               <input
                 type="tel"
-                class="form-oder__input"
+                class="form-order__input"
                 name="phone"
                 placeholder="Телефон"
               />
               <input
                 type="email"
-                class="form-oder__input"
+                class="form-order__input"
                 name="email"
                 placeholder="E-mail"
               />
               <input
                 type="text"
-                class="form-oder__input"
+                class="form-order__input"
                 name="address"
                 placeholder="Адрес доставки"
               />
               <textarea
-                class="form-oder__textarea"
+                class="form-order__textarea"
                 name="comments"
                 placeholder="Комментарии к заказу"
               ></textarea>
             </fieldset>
             <fieldset class="form-order__fieldset form-order__fieldset-radio">
-              <legend class="form-oder__legend">Доставка</legend>
-              <label class="form-oder__label radio">
+              <legend class="form-order__legend">Доставка</legend>
+              <label class="form-order__label radio">
                 <input
                   class="radio__input"
                   type="radio"
@@ -482,7 +482,7 @@
                   value="delivery"
                 />Доставка
               </label>
-              <label class="form-oder__label radio">
+              <label class="form-order__label radio">
                 <input
                   class="radio__input"
                   type="radio"
@@ -491,9 +491,9 @@
                 />Самовывоз
               </label>
             </fieldset>
-            <fieldset
-              legend class="form-oder__legend">Оплата</legend>
-              <label class="form-oder__label radio">
+            <fieldset class="form-order__fieldset form-order__fieldset-radio">
+              <legend class="form-order__legend">Оплата</legend>
+              <label class="form-order__label radio">
                 <input
                   class="radio__input"
                   type="radio"
@@ -501,7 +501,7 @@
                   value="card"
                 />Картой при получении
               </label>
-              <label class="form-oder__label radio">
+              <label class="form-order__label radio">
                 <input
                   class="radio__input"
                   type="radio"
@@ -509,9 +509,46 @@
                   value="cash"
                 />Наличными при получении
               </label>
-            ></fieldset>
+            </fieldset>
           </form>
         </div>
+      </div>
+    </section>
+
+    <section class="order">
+      <div class="container">
+        <h3 class="order__title">Заказ успешно размещен</h3>
+        <p class="order__number">№75698</p>
+        <p class="order__subtitle">Данные доставки</p>
+
+        <table class="order__characteristics-table table">
+          <tr class="table__row">
+            <td class="table__field">Получатель</td>
+            <td class="table__value">Иван иванов</td>
+          </tr>
+          <tr class="table__row">
+            <td class="table__field">Телефон</td>
+            <td class="table__value">+77072582587</td>
+          </tr>
+          <tr class="table__row">
+            <td class="table__field">e-mail</td>
+            <td class="table__value">qwerty@mail.kz</td>
+          </tr>
+          <tr class="table__row">
+            <td class="table__field">Адрес доставки</td>
+            <td class="table__value">Дом, улица</td>
+          </tr>
+          <tr class="table__row">
+            <td class="table__field">Способ оплаты</td>
+            <td class="table__value">Картой при получении</td>
+          </tr>
+          <tr class="table__row">
+            <td class="table__field">Способ получения</td>
+            <td class="table__value">Доставка</td>
+          </tr>
+        </table>
+
+        <a href="/" class="order__link">На главную </a>
       </div>
     </section>
 
