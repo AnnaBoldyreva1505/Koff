@@ -2,17 +2,20 @@
   padding-top: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid #eeeff2;
-  
+
   &__container {
     display: grid;
     gap: 16px;
     justify-content: space-between;
+    align-items: center;
     grid-template-areas:
       "logo control"
       "search search";
 
     @media (min-width: 820px) {
       grid-template-areas: "logo search control";
+      grid-template-columns: 94px 1fr auto;
+      align-items: center;
     }
   }
 
@@ -21,28 +24,99 @@
   }
 
   &__logo {
-  }
-
-  &__form {
+    width: 94px;
   }
 
   &__search {
     grid-area: search;
+    position: relative;
+    width: 100%;
+    height: 40px;
+
+    @media (min-width: 820px) {
+      width: 410px;
+      justify-self: center;
+    }
+
+    @media (min-width: 1120px) {
+      width: 515px;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    height: 100%;
+    padding: 0 40px 0 24px;
+    border-radius: 32px;
+    background-color: #eeeff2;
+    border: none;
+
+    &::placeholder {
+      color: #969eae;
+    }
+    &:focus-visible,
+    &:hover {
+      outline: 1px solid #dfe3eb;
+    }
   }
 
   &__btn {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    outline-offset: 4px;
+    outline: 1px solid transparent;
+
+    &:hover,
+    &:active {
+      color: #780096;
+    }
+    &:focus-visible {
+      color: #780096;
+      outline-color: #780096;
+    }
   }
 
-  &__controll {
+  &__control {
     grid-area: control;
+    justify-self: end;
+    display: flex;
+    gap: 16px;
   }
 
   &__link {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 4px;
+
+    &:hover,
+    &:active {
+      color: #780096;
+    }
+
+    &:focus-visible {
+      color: #780096;
+      outline-color: #780096;
+    }
+
+    @media (min-width: 580px) {
+      flex-direction: row;
+    }
   }
 
   &__link-text {
+    display: none;
+    @media (min-width: 580px) {
+      display: block;
+    }
   }
 
-  &__count {
-  }
+  // &__count {
+  // }
 }

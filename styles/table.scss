@@ -1,4 +1,97 @@
 .table {
+    width: 100%;
+    border-collapse: collapse;
+
+    &__row {
+        border-bottom: 1px solid #eeeff2;
+    }
+
+    &__field {
+        padding: 8px 0;
+        color: #969eae;
+    }
+
+    &__value {
+        padding: 8px 0;
+        text-align: right;
+        color: #1c1c1c;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.product {
+
+    &__title {}
+
+    &__picture {}
+
+    &__slider-main {}
+
+    &__main-list {}
+
+    &__slide {}
+
+    &__arrow {}
+
+    &__arrow-prev {}
+
+    &__arrow-next {}
+
+    &__slider-thumbnails {}
+
+    &__thumbnails-list {}
+
+    &__thumbnails-slide {}
+
+    &__thumbnails-img {}
+
+    &__info {}
+
+    &__price {}
+
+    &__article {}
+
+    &__characteristics {}
+
+    &__characteristics-title {}
+
+    &__characteristics-table {}
+
+    &__btns {}
+
+    &__btn {}
+
+    &__like {}
+}
+
+
+
+.table {
 
     &__row {}
 
@@ -6,3 +99,11 @@
 
     &__value {}
 }
+
+
+
+
+
+
+
+
