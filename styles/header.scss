@@ -1,0 +1,48 @@
+.header {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeeff2;
+  
+  &__container {
+    display: grid;
+    gap: 16px;
+    justify-content: space-between;
+    grid-template-areas:
+      "logo control"
+      "search search";
+
+    @media (min-width: 820px) {
+      grid-template-areas: "logo search control";
+    }
+  }
+
+  &__link-logo {
+    grid-area: logo;
+  }
+
+  &__logo {
+  }
+
+  &__form {
+  }
+
+  &__search {
+    grid-area: search;
+  }
+
+  &__btn {
+  }
+
+  &__controll {
+    grid-area: control;
+  }
+
+  &__link {
+  }
+
+  &__link-text {
+  }
+
+  &__count {
+  }
+}
