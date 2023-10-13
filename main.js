@@ -1,6 +1,10 @@
 import "normalize.css";
 import "./style.scss";
 import Navigo from "navigo";
+import { Header } from "./modules/Header/header";
+import { Footer } from "./modules/Footer/footer";
+import { Main } from "./modules/Main/main";
+import { Order } from "./modules/Order/order";
 
 const productSlider = () => {
   Promise.all([
@@ -34,6 +38,9 @@ const productSlider = () => {
 productSlider();
 
 const init = () => {
+  new Header().mount()
+  new Main().mount()
+  new Footer().mount()
   productSlider();
 
   const router = new Navigo("/", { linkSelector: 'a[href^="/"]' });
@@ -58,10 +65,10 @@ const init = () => {
       console.log("cart");
     })
     .on("/order", () => {
-      console.log("order");
+      new Order().mount()
     })
     .notFound(() => {
-      document.body.innerHTML = "<h2>страница не найдена</h2>"
+      document.body.innerHTML = "<h2>страница не найдена</h2>";
     });
 
   router.resolve();
