@@ -38,9 +38,9 @@ const productSlider = () => {
 productSlider();
 
 const init = () => {
-  new Header().mount()
-  new Main().mount()
-  new Footer().mount()
+  new Header().mount();
+  new Main().mount();
+  new Footer().mount();
   productSlider();
 
   const router = new Navigo("/", { linkSelector: 'a[href^="/"]' });
@@ -65,7 +65,7 @@ const init = () => {
       console.log("cart");
     })
     .on("/order", () => {
-      new Order().mount()
+      new Order().mount();
     })
     .notFound(() => {
       document.body.innerHTML = "<h2>страница не найдена</h2>";

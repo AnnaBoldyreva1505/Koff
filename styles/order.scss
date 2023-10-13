@@ -50,11 +50,21 @@
 
   &__title {
     font-size: 16px;
+    margin-bottom: 10px;
 
     @media (min-width: 580px) {
       font-size: 20px;
     }
     font-size: 20px;
+  }
+
+  &__price {
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    text-align: left;
   }
 
   &__number {
@@ -64,7 +74,6 @@
     border-radius: 32px;
     background-color: #eeeff2;
   }
-
 
   &__characteristics-table {
     margin-top: 20px;
