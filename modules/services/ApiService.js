@@ -1,66 +1,60 @@
-import axios from "axios";
-import { API_URL } from "../../const";
+import axios from 'axios';
+import { API_URL } from '../../const';
+import { AccessKeyService } from './StorageService';
+
+const keyServices = new AccessKeyService();
 
 export class ApiService {
   #apiUrl = API_URL;
-
-  constructor() {
-    this.accessKey = localStorage.getItem("accessKey");
-  }
+  accessKey = keyServices.get();
 
   async getAccessKey() {
     try {
       if (!this.accessKey) {
         const response = await axios.get(`${this.#apiUrl}api/users/accessKey`);
-        this.accessKey = response.data.accessKey;
-        localStorage.setItem("accessKey", this.accessKey);
+        this.accessKey = keyServices.set(response.data.accessKey);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.error(err.message);
     }
   }
 
-  async getData(url, params = {}) {
+  async getData(pathname, params = {}) {
     if (!this.accessKey) {
       await this.getAccessKey();
     }
     try {
-      const response = await axios.get(`${this.#apiUrl}${url}/`, {
+      const response = await axios.get(`${this.#apiUrl}${pathname}`, {
         headers: {
           Authorization: `Bearer ${this.accessKey}`,
-          params,
         },
+        params,
       });
 
       return response.data;
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        this.accessKey = null;
-        localStorage.removeItem("accessKey");
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        this.accessKey = keyServices.delete();
 
-        return this.getData(url, params);
+        return this.getData(pathname, params);
       } else {
-        console.log(error);
+        console.error(err.message);
       }
     }
   }
 
-  async getProducts(page = 1, limit = 12, list, category, q) {
-    const data = await this.getData("api/products", {
-      page,
-      limit,
-      list,
-      category,
-      q,
-    });
+  async getProducts(params = {}) {
+    if (params.list) {
+      params.list = params.list.join();
+    }
+    return await this.getData('api/products', params);
   }
 
-async getProductCategories() {
+  async getProductCategories() {
     return await this.getData('api/productCategories');
   }
 
   async getProductById(id) {
-    return await this.getData(`api/product/${id}`);
+    return await this.getData(`api/products/${id}`);
   }
-
 }

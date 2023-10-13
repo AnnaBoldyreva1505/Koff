@@ -1,15 +1,21 @@
 .catalog {
   overflow-x: hidden;
   padding-top: 24px;
+
   @media (min-width: 580px) {
     padding-top: 32px;
   }
+
   @media (min-width: 820px) {
     padding-top: 40px;
   }
-  
+
   &__container {
     padding: 0;
+
+    @media (min-width: 1120px) {
+      padding: 0;
+    }
   }
 
   &__list {
@@ -19,11 +25,11 @@
     gap: 4px;
 
     @media (min-width: 580px) {
-      padding-top: 0 29px;
+      padding: 0 29px;
     }
 
     @media (min-width: 820px) {
-      padding-top: 0 43px;
+      padding: 0 43px;
     }
 
     @media (min-width: 1120px) {
@@ -33,9 +39,9 @@
 
   &__link {
     display: block;
+    padding: 8px 14px 10px 14px;
     border-radius: 32px;
     background-color: #eeeff2;
-    padding: 8px 14px 10px 14px;
     color: #969eae;
     outline: none;
     border: 1px solid transparent;
@@ -43,22 +49,17 @@
 
     &:hover,
     &:focus-visible {
-      border-color: #780096;
       color: #780096;
+      border-color: #780096;
     }
 
     &:active,
     &_active {
-      color: white;
+      color: #ffffff;
       background-color: #780096;
-
-      &:hover,
-      &:focus-visible {
-        color: white;
-      }
     }
 
-    &:active {
+    &_active {
       pointer-events: none;
     }
   }

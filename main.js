@@ -8,6 +8,8 @@ import { Order } from "./modules/Order/order";
 import { ProductList } from "./modules/ProductList/productList";
 import { ApiService } from "./modules/services/ApiService";
 import { Catalog } from "./modules/Catalog/Catalog";
+
+
 const productSlider = () => {
   Promise.all([
     import("swiper/modules"),
@@ -40,15 +42,14 @@ const productSlider = () => {
 productSlider();
 
 const init = () => {
+  const router = new Navigo("/", { linkSelector: 'a[href^="/"]' });
   const api = new ApiService();
   new Header().mount();
   new Main().mount();
   new Footer().mount();
 
-  const router = new Navigo("/", { linkSelector: 'a[href^="/"]' });
-
-  api.getProductCategories().then((data) => {
-    new Catalog().mount(new Main().element, data);
+  api.getProductCategories().then(categories => {
+    new Catalog().mount(new Main().element, categories);
     router.updatePageLinks();
   });
 
@@ -56,23 +57,18 @@ const init = () => {
 
   router
     .on(
-      "/",
+      '/',
       async () => {
-        const product = await api.getProducts();
-        new ProductList().mount(new Main().element, product);
+        const products = await api.getProducts();
+        new ProductList().mount(new Main().element, products);
         router.updatePageLinks();
       },
       {
         leave(done) {
-            new ProductList().unmount();
+          new ProductList().unmount();
           done();
         },
       },
-      {
-        already() {
-          console.log("already");
-        },
-      }
     )
     .on(
       "/category",
@@ -111,9 +107,18 @@ const init = () => {
     .on("/cart", () => {
       console.log("cart");
     })
-    .on("/order", () => {
-      new Order().mount();
-    })
+    .on(
+      '/order',
+      () => {
+        new Order().mount(new Main().element);
+      },
+      {
+        leave(done) {
+          new Order().unmount();
+          done();
+        },
+      },
+    )
     .notFound(
       () => {
         new Main().element.innerHTML = `<h2>страница не найдена</h2>

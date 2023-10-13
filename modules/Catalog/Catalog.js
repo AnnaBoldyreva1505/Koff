@@ -15,6 +15,19 @@ export class Catalog {
     return Catalog.instance;
   }
 
+  
+
+  mount(parentElem, data) {
+    if (this.isMounted) {
+      return;
+    }
+
+    this.renderListElem(data);
+
+    parentElem.prepend(this.element);
+    this.isMounted = true;
+  }
+
   renderListElem(data) {
     const listElem = document.createElement('ul');
     listElem.className = 'catalog__list';
@@ -33,17 +46,6 @@ export class Catalog {
 
     listElem.append(...listItems);
     this.containerElement.append(listElem);
-  }
-
-  mount(parentElem, data) {
-    if (this.isMounted) {
-      return;
-    }
-
-    this.renderListElem(data);
-
-    parentElem.prepend(this.element);
-    this.isMounted = true;
   }
 
   unmount() {
