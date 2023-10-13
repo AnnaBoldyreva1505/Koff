@@ -1,6 +1,6 @@
 import { addContainer } from "../Main/addContainer";
 
-import logoImg from "../../public/img/Koff_logo.svg";
+import logoImg from "/img/Koff_logo.svg";
 
 export class Footer {
   static instance = null;

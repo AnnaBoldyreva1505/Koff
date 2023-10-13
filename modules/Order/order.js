@@ -6,7 +6,7 @@ export class Order {
   constructor() {
     if (!Order.instance) {
       Order.instance = this;
-      this.element = document.createElement("order");
+      this.element = document.createElement("div");
       this.element.classList.add("order");
       this.containerElement = addContainer(this.element, "order__container");
       this.isMounted = false;
