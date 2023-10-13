@@ -5,7 +5,9 @@ import { Header } from "./modules/Header/header";
 import { Footer } from "./modules/Footer/footer";
 import { Main } from "./modules/Main/main";
 import { Order } from "./modules/Order/order";
-
+import { ProductList } from "./modules/ProductList/productList";
+import { ApiService } from "./modules/services/ApiService";
+import { Catalog } from "./modules/Catalog/Catalog";
 const productSlider = () => {
   Promise.all([
     import("swiper/modules"),
@@ -38,23 +40,68 @@ const productSlider = () => {
 productSlider();
 
 const init = () => {
+  const api = new ApiService();
   new Header().mount();
   new Main().mount();
   new Footer().mount();
-  productSlider();
 
   const router = new Navigo("/", { linkSelector: 'a[href^="/"]' });
 
+  api.getProductCategories().then((data) => {
+    new Catalog().mount(new Main().element, data);
+    router.updatePageLinks();
+  });
+
+  productSlider();
+
   router
-    .on("/", () => {
-      console.log("главная");
-    })
-    .on("/category", () => {
-      console.log("category");
-    })
-    .on("/favorite", () => {
-      console.log("favorite");
-    })
+    .on(
+      "/",
+      async () => {
+        const product = await api.getProducts();
+        new ProductList().mount(new Main().element, product);
+        router.updatePageLinks();
+      },
+      {
+        leave(done) {
+            new ProductList().unmount();
+          done();
+        },
+      },
+      {
+        already() {
+          console.log("already");
+        },
+      }
+    )
+    .on(
+      "/category",
+      async ({ params: { slug } }) => {
+        const product = await api.getProducts();
+        new ProductList().mount(new Main().element, product, slug);
+        router.updatePageLinks();
+      },
+      {
+        leave(done) {
+          new ProductList().unmount();
+          done();
+        },
+      }
+    )
+    .on(
+      "/favorite",
+      async () => {
+        const product = await api.getProducts();
+        new ProductList().mount(new Main().element, product, "Избранное");
+        router.updatePageLinks();
+      },
+      {
+        leave(done) {
+          new ProductList().unmount();
+          done();
+        },
+      }
+    )
     .on("/search", () => {
       console.log("search");
     })
@@ -67,9 +114,32 @@ const init = () => {
     .on("/order", () => {
       new Order().mount();
     })
-    .notFound(() => {
-      document.body.innerHTML = "<h2>страница не найдена</h2>";
-    });
+    .notFound(
+      () => {
+        new Main().element.innerHTML = `<h2>страница не найдена</h2>
+      <p>Через <span id="countdown">5</span> секунд вы будете перенаправлены <a href="/" на главную страницу</a></p>`;
+
+        function countDown(seconds) {
+          const countdownElement = document.getElementById("countdown");
+
+          (function updateCountdown() {
+            countdownElement.textContent = seconds--;
+            if (seconds >= 0) setTimeout(updateCountdown, 1000);
+          })();
+        }
+        countDown(5);
+
+        setTimeout(() => {
+          router.navigate("/");
+        }, 5000);
+      },
+      {
+        leave(done) {
+          new Main().element.innerHTML = "";
+          done();
+        },
+      }
+    );
 
   router.resolve();
 };
